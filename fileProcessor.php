@@ -1,6 +1,9 @@
 <?php
+namespace RobinTheHood\ModifiedModuleLoaderClient;
 
-    class fileProcessor
+use RobinTheHood\ModifiedModuleLoaderClient\ModuleInstaller;
+
+class fileProcessor
     {
     
         private $file; // Filename with directory
