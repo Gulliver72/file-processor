@@ -9,6 +9,7 @@ class fileProcessor
         private $file; // Filename with directory
         private $content; // Filecontent
         private $partsOfContent; // Array von Teilstücken des Contents wenn nicht das erste Vorkommen ersetzt werden soll
+        private $needleArray;
         private $needle;
         private $replacement;
         private $whichOccurs; // Array mit Vorkommen, die bearbeitet werden sollen // leer wenn alle Vorkommen bearbeitet werden sollen
