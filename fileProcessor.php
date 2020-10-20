@@ -160,7 +160,17 @@ class fileProcessor
                 return true;
             }
         }
-        
+
+        public setNeedle(string $needle) {
+
+            $this->needle = $needle;
+        }
+
+        public setReplacement(string $replacement) {
+
+            $this->replacement = $replacement;
+        }
+
         public setWhichOccurs(string $whichOccurs) {
         
             $this->whichOccurs = explode(',', $whichOccurs);
