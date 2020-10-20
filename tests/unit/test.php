@@ -7,7 +7,7 @@
 
     $res = array();
 
-    $replacement = new replaceCodeParts();
+    $replacement = new FileProcessor();
     if ($replacement->setFile($file) === true) {
         if ($hash == $replacement->getFileHash()) {
             $replacement->setNeedle($needle);
