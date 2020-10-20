@@ -22,26 +22,32 @@ class fileProcessor
         public function patch() {
         
             // Original File sichern
-            $src = 'ModifiedModuleLoader/meinmodul/backup/old/' . $this->file;
+            $src = 'ModifiedModuleLoader/meinmodul/backup/old/' . $this->file; // ToDo den korrekten Pfad übergeben
 
             $moduleInstaller = new ModuleInstaller();
             $moduleInstaller->installFile($src, $this->file, false);
             
             // content bearbeiten
             $this->content = FileHelper::readFile($this->file);
-            $this->checkIfNeedleExist();
-            $this->breakContent(); // Logik für $this->breakContent() muß noch erstellt werden
-            
-            $count = 0;
-            foreach ($this->whichOccurs as $part) {
-                $this->replaceContent($this->partsOfContent[$count], $count);
+
+            $this->breakContent();
+
+            if (empty($this->partsOfContent)) {
                 
-                $count++;
+                $count = 0;
+                foreach ($this->whichOccurs as $part) { // which needle should be replaced
+                    
+                    $this->replaceContent($part, $count);
+                    $count++;
+                }
+            } else {
+                
+                $this->replaceContent(0);
             }
+
+            $this->content = $this->composeContent();
             
-            $content = $this->composeContent();
-            
-            $src = 'ModifiedModuleLoader/meinmodul/backup/new/' . $this->file;
+            $src = 'ModifiedModuleLoader/meinmodul/backup/new/' . $this->file; // ToDo den korrekten Pfad übergeben
             
             $datei_handle = fopen($src, "w+");
             if (!fputs($datei_handle, $content)){
@@ -49,11 +55,12 @@ class fileProcessor
                 exit;
             }
             fclose($datei_handle);
-             
+
             // bearbeitetes File sichern
             unlink($this->file); // Original-File löschen
             $moduleInstaller->installFile($this->file, $src, false);
 
+            $this->reset();
         }
            
         public function composeContent() {
