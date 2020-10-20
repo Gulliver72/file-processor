@@ -136,6 +136,14 @@ class fileProcessor
         
             $this->whichOccurs = explode(',', $whichOccurs);
         }
+
+        public function getFileHash():string {
+
+            $temp = new Hasher();
+            $hash = $temp->createFileHashes($this->file);
+
+            return $hash[$this->file];
+        }
         
         public function getContent() {
         
