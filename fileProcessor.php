@@ -16,12 +16,7 @@ class fileProcessor
         
         function __construct() {
         
-            $this->file = '';
-            $this->content = '';
-            $this->partsOfContent = array();
-            $this->needle = '';
-            $this->replacement = '';
-            $this->whichOccurs = array();
+            $this->reset();
         }
         
         public function patch() {
@@ -132,6 +127,17 @@ class fileProcessor
         
             return $this->content;
         }    
+ 
+        function reset() {
+
+            $this->file = '';
+            $this->content = '';
+            $this->partsOfContent = array();
+            $this->needleArray = array(0); // the first current entry in logic has key 1
+            $this->needle = '';
+            $this->replacement = '';
+            $this->whichOccurs = array();
+        }
     }
     
     $file = 'testverzeichnis/test.php';
