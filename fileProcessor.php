@@ -89,10 +89,12 @@ class fileProcessor
             
         }
         
-        private function replaceContent(string $partOfContent, int $count): mixed {
-        
-            if (in_array($count, $this->whichOccurs)) {
-                $this->partsOfContent[$count] = str_replace(mixed $this->needle, mixed $this->replacement, mixed $this->partsOfContent[$count], int $count);
+        private function replaceContent(int $part, int $count = 0) {
+
+            if (empty($this->partsOfContent)) {
+                $this->needleArray[$part] = str_replace($this->needle, $this->replacement, $this->needleArray[$part], $count);
+            } else {
+                $this->content = str_replace($this->needle, $this->replacement, $this->content); // if only one needle in content
             }
         }
         
