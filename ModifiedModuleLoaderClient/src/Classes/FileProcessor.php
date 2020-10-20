@@ -3,7 +3,7 @@ namespace RobinTheHood\ModifiedModuleLoaderClient;
 
 use RobinTheHood\ModifiedModuleLoaderClient\ModuleInstaller;
 
-class fileProcessor
+class FileProcessor
     {
     
         private $file; // Filename with directory
