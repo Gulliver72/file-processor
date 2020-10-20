@@ -81,7 +81,34 @@ class fileProcessor
         }
         
         private function breakContent() {
-        
+
+            if ($this->checkIfNeedleExist() === true) {
+
+                $content = $this->content;
+                if (substr_count($content, $this->needle) > 1) { // break content only if needle occurs more than once
+                
+                    $this->partsOfContent['first'] = strstr($content, (string)$this->needle, TRUE); // returns the part of $content that is before the first occurrence of $needle (without $needle itself)
+
+                    $content = strstr($content, (string)$this->needle); // rest of $content
+                    $content = substr($content, 0, strlen($this->needle)); // $needle must be removed from the rest of the content
+                    
+                    $this->needleArray[] = $this->needle;
+                    
+                    $count_needle = substr_count($content, $this->needle); // how often is $needle included? is needed for the for loop
+                    
+                    for ($i = 0; $i < $count_needle; $i++) {
+                    
+                        $this->partsOfContent[] = strstr($content, (string)$this->needle, TRUE); // returns the part of $content that is before the first occurrence of $needle (without $needle itself)
+                    
+                        $content = strstr($content, (string)$this->needle); // rest of $content
+                        $content = substr($content, 0, strlen($this->needle)); // $needle must be removed from the rest of the content
+
+                        $this->needleArray[] = $this->needle;
+                    }
+                    
+                    if ($content != '') $this->partsOfContent[] = $content; // if $content still contains something
+                }
+            }
         }
         
         private function rollback() {
