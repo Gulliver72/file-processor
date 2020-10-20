@@ -57,13 +57,27 @@ class fileProcessor
         }
            
         public function composeContent() {
-        
-            if (empty($this->parts)) {
-            
+
+            if (empty($this->partsOfContent)) {
+
                 return $this->content;
             }
             
-            return implode('', $this->parts);
+            $temp_array = array();
+            
+            if (isset($this->partsOfContent['first'])) $temp_array[] = $this->partsOfContent['first']; // if a part of the content is before the first needle
+            
+            $count1 = count($this->partsOfContent);
+            $count2 = count($this->needleArray);
+            $count = $count1 > $count2 ? $count1 : $count2; // set the counter to the larger value
+            
+            for ($i = 0; $i < $count; $i++) {
+                // putting content and needles back together
+                if (isset($this->needleArray[$i])) $temp_array[] = $this->needleArray[$i]; 
+                if (isset($this->partsOfContent[$i])) $temp_array[] = $this->partsOfContent[$i];
+            }
+
+            return implode('', $temp_array);
         }
         
         private function breakContent() {
