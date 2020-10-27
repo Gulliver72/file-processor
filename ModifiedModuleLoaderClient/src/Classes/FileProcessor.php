@@ -62,6 +62,35 @@ class FileProcessor
 
             $this->reset();
         }
+
+        public function patchWithRegex() {
+        
+            // Original File sichern
+            $src = 'ModifiedModuleLoader/meinmodul/backup/old/' . $this->file; // ToDo den korrekten Pfad übergeben
+
+            $moduleInstaller = new ModuleInstaller();
+            $moduleInstaller->installFile($src, $this->file, false);
+            
+            // content bearbeiten
+            $this->content = FileHelper::readFile($this->file);
+
+            $this->pregReplaceContent(-1);
+            
+            $src = 'ModifiedModuleLoader/meinmodul/backup/new/' . $this->file; // ToDo den korrekten Pfad übergeben
+            
+            $datei_handle = fopen($src, "w+");
+            if (!fputs($datei_handle, $this->content)){
+                $this->rollback();
+                exit;
+            }
+            fclose($datei_handle);
+
+            // bearbeitetes File sichern
+            unlink($this->file); // Original-File löschen
+            $moduleInstaller->installFile($this->file, $src, false);
+
+            $this->reset();
+        }
            
         public function composeContent() {
 
