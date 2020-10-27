@@ -50,7 +50,7 @@ class FileProcessor
             $src = 'ModifiedModuleLoader/meinmodul/backup/new/' . $this->file; // ToDo den korrekten Pfad übergeben
             
             $datei_handle = fopen($src, "w+");
-            if (!fputs($datei_handle, $content)){
+            if (!fputs($datei_handle, $this->content)){
                 $this->rollback();
                 exit;
             }
