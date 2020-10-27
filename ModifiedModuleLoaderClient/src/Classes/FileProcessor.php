@@ -131,6 +131,20 @@ class FileProcessor
                 $this->content = str_replace($this->needle, $this->replacement, $this->content); // if only one needle in content
             }
         }
+
+        public function pregReplaceContent(int $limit = -1, int $count = 0) {
+    
+            if (preg_match($this->needle, $this->content) == 1) {
+         
+                $new_subject = preg_replace($this->needle, $this->replacement, $this->content, $limit, &$count);
+         
+                if (false !== $new_subject) {
+                    $this->content = $new_subject;
+                }
+            }
+            
+            return $this->content;
+        }    
         
         private function checkIfNeedleExist(): bool {
         
