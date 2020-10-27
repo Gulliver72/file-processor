@@ -136,10 +136,10 @@ class FileProcessor
     
             if (preg_match($this->needle, $this->content) == 1) {
          
-                $new_subject = preg_replace($this->needle, $this->replacement, $this->content, $limit, &$count);
+                $content = preg_replace($this->needle, $this->replacement, $this->content, $limit, &$count);
          
-                if (false !== $new_subject) {
-                    $this->content = $new_subject;
+                if (false !== $content) {
+                    $this->content = $content;
                 }
             }
         }    
