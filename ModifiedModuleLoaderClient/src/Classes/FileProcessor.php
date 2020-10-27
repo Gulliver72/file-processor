@@ -132,7 +132,7 @@ class FileProcessor
             }
         }
 
-        public function pregReplaceContent(int $limit = -1, int $count = 0) {
+        private function pregReplaceContent(int $limit = -1, int $count = 0) {
     
             if (preg_match($this->needle, $this->content) == 1) {
          
@@ -142,8 +142,6 @@ class FileProcessor
                     $this->content = $new_subject;
                 }
             }
-            
-            return $this->content;
         }    
         
         private function checkIfNeedleExist(): bool {
